@@ -591,7 +591,7 @@ def get_code_temp_plus(email):
 			'Connection-type': 'wifi'
 		}
 	headers.update({'cookie': f'email={email}'})
-	response = mail.get(f'https://tempmail.plus/api/mails', headers=headers)
+	response = mail.get(f'https://tempmail.plus/api/mails?email={email}', headers=headers)
 	print(response.json())
 	if response.status_code == 200:
 		req = response.json()
@@ -667,20 +667,8 @@ hx=(f"""  [bold green1]TODAY DATE[medium_purple1]  ⟩ [bold green1]{ll}
 def banner():
     os.system("clear")
     print(logo)
-####    print(Panel(logo,subtitle="[bold red]● [bright_yellow]● [green1]●",subtitle_align='left',title="[bold red]● [bright_yellow]● [green1]●",title_align='right',width=102,padding=0,style=f"bold magenta2"))
-####    print(Panel(hx,width=100,padding=0,style="bold magenta2"))
-def fucker():
-	fuckingPass = input(' Enter Password : ')
-	if fuckingPass in ['0']:
-		exit()
-	elif fuckingPass in ["@cyberrowx"]:
-		banner()
-	else:
-		print(" Your Password is Wrong !!")
-		exit()
 		
 def bryxcreate():
-	fucker()
 	banner()
 	a=(" [green_yellow][[bold cyan1]1[green_yellow]][bold green1] AUTOMATIC FB TYPE CREATION\n [green_yellow][[bold cyan1]2[green_yellow]][bold green1] ADD PROFILE INFORMATION\n [green_yellow][[bold cyan1]0[green_yellow]][bold red] EXIT")
 	print(Panel(a,subtitle="[bold magenta2]┌─",subtitle_align='left',style="bold magenta2"))
@@ -721,9 +709,9 @@ def main() -> None:
     print(Panel(a,subtitle="[bold magenta2]┌─",subtitle_align='left',style="bold magenta2"))
     Bryx=Console().input("   [bold magenta2]└──> ")
     if Bryx in ["1","01"]:
-    	passw=fake_password()
+        passw=fake_password()
     elif Bryx in ["2","02"]:
-    	passw=input('\033[1;37mENTER CUSTOM PASSWORD : ')
+        passw=input('\033[1;37mENTER CUSTOM PASSWORD : ')
     for make in range(int(num_accounts)):
         progres(make+1,num_accounts,delay)
         ses = requests.Session()
