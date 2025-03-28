@@ -583,6 +583,27 @@ def get_temp_plus():
 import requests
 import re
 
+def get_code_dong_van(email):
+    mail = requests.Session()
+    headers = {
+            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+            'Content-Type':'application/json'
+        }
+    response = mail.post(f'https://tools.dongvanfb.net/api/get_messages_oauth2', headers=headers, data=json.dumps(
+        {"email":"snappzerla9118@outlook.com","pass":"AWlKGS6ABm","refresh_token":"M.C557_SN1.0.U.-CoPnvimCI819EpAhHFtFoGQVDDkJojbLUUyJ8ErPJKEFQXKtBrg3GKKbImJESA!77KGbyqrXrL!OudwDYkfFTnY2NuR6Hv0plSSK6dW6VO2b8F72aksqYqP9RzdtC!50m6jHAr62DgrQNIUJVpSiRcSQWoqYysDLl6dMenCeS82zQE35bDwHEqjp49n9vfRAlleAEeq*SCLNBCL01oSgnDJXRb0elwCgzB6ab4oPN*ZsMsXqGI9X3sEFOqozgtv216ik0XOFDTvWD*cxB41!W2weIwrZ*o41fjzX9jVuoagJ!L9pMGcUm3UMn8le5cM!3SNBJkChaPHBNtN6s4q6D8Mf2G7PjbXn6RbLm4jP45LdyXQIeoRKmthcEUrPxIclphK4ssztziKt04zaPunSt65nFHzvWsD7yGsJAxtC5svL","client_id":"9e5f94bc-e8a4-4e73-b8be-63364c29d753"}
+    ))
+    if response.status_code == 200:
+        req = response.json()
+        mail_list = req.get("messages", [])
+        if mail_list:
+            subject = mail_list[0].get('message', '')
+            kode = re.search(r'(\d+)', subject)
+            code = kode.group(1) if kode else 'Code not found'
+            return code
+        else:
+            return 'not found'
+    return None
+
 def get_code_temp_plus(email):
 	mail = requests.Session()
 	headers = {
@@ -722,7 +743,8 @@ def main() -> None:
         mts = ses.get("https://touch.facebook.com").text
         m_ts = re.search(r'name="m_ts" value="(.*?)"',str(mts)).group(1)
         formula = extractor(response.text)
-        email2 = get_temp_plus()
+        # email2 = get_temp_plus()
+        email2 = "snappzerla9118@outlook.com"
         phone2 = GetPhone()
         email3 = GetEmails()
         firstname,lastname = fake_name()
@@ -854,7 +876,7 @@ def main() -> None:
                 'soft': 'hjk',
             }
             con_sub = ses.get('https://x.facebook.com/confirmemail.php', params=params, headers=header2).text
-            valid = get_code_temp_plus(email2)
+            valid = get_code_dong_van(email2)
             if valid:
                 print(Panel(f"[bold white] OTP SENT TO MAIL",style="bold magenta2"))
                 print(Panel(f"[bold white] VERIFICATION CODE : {valid}",style="bold magenta2"))
