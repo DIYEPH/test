@@ -885,7 +885,7 @@ def main() -> None:
                 print(Panel(f"[bold red] CHECKPOINT",style="bold magenta2"))
                 Cp+=1
         else:
-             print(Panel(f"[bold red] CHECKPOINT",style="bold magenta2"))
+            print(Panel(f"[bold red] CHECKPOINT",style="bold magenta2"))
             Cp+=1
 
 def confirm_id(mail,uid,otp,data,ses):
