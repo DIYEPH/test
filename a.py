@@ -733,7 +733,7 @@ def main() -> None:
         m_ts = re.search(r'name="m_ts" value="(.*?)"',str(mts)).group(1)
         formula = extractor(response.text)
         # email2 = get_temp_plus()
-        emaitGet = get_email()
+        emailGet = get_email()
         if emailGet is None:
             exit("[bold red]EMAIL NOT FOUND")
         email2 = emailGet['email']
