@@ -934,7 +934,9 @@ def confirm_id(mail,uid,otp,data,ses):
         else:
             cookie = (";").join([ "%s=%s" % (key,value) for key,value in ses.cookies.get_dict().items()])
             print(Panel(f"[bold green1] UID      : {uid}\n[bold green1] PASSWORD : {passw}\n[bold green1] COOKIE   : [bold green1]{cookie}\n[bold green1] USERAGENT : [bold green1]{useragent_facebook()}",subtitle="[bold yellow] CREATE ",style="bold magenta2"))
-            post_account(uid,passw,cookie,email2,otp,useragent_facebook())
+            status=post_account(uid,passw,cookie,email2,otp,useragent_facebook())
+            if status is not None:
+                print(Panel(f"[bold green1] POST ACCOUNT SUCCESSFULLY",style="bold magenta2"))
             dn()
             open("/sdcard/CyberRow-X/SUCCESS-OK-ID.txt","a").write(uid+f"|{passw}|"+cookie+"\n")
             Ok+=1
