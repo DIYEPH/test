@@ -416,8 +416,9 @@ def ugenX():
     ualist = [ua.random for _ in range(50)]
     return str(random.choice(ualist))
 
-def fake_name():
-    last, first = fake_name_VN()
+def fake_name(): 
+    first = Faker().first_name() 
+    last = Faker().last_name() 
     return first,last
 
 def fake_password():
@@ -541,7 +542,7 @@ def GetPhone():
     nope = '+639%s%s%s' % (na, ni, nu)
     return nope
 
-def GetEmailsEN():
+def GetEmails():
     nam1 = random.choice(['eka','dwi','tri','budi','indah','dewi'])
     nam2 = random.choice(['nurhayati','handoko','setiyani','susanto','permata'])
     nam3 = random.choice(['triatmaja','siagian','manopo','jayaningrat','widodo'])
@@ -550,7 +551,7 @@ def GetEmailsEN():
     nu = str(random.randrange(10000, 100000))
     nope = f'{name}@{domain}'
     return nope
-def GetEmails():
+def GetEmailsVN():
     nam1 = random.choice(['an', 'bao', 'chinh', 'dung', 'giang', 'hieu', 'khoa', 'lam', 'minh', 'ngoc'])
     nam2 = random.choice(['quang', 'thanh', 'phuong', 'tuan', 'hoang', 'hai', 'trung', 'xuan', 'thao'])
     nam3 = random.choice(['nguyen', 'tran', 'le', 'pham', 'vu', 'dang', 'bui', 'do', 'ho', 'ly'])
@@ -977,21 +978,21 @@ def post_account(uid, password, cookie, email, two_fa, useragent):
 
 
 
-def fake_name_VN():
-    last_names = [
-        'Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Vũ', 'Đặng', 'Bùi', 'Đỗ',
-        'Hồ', 'Ngô', 'Dương', 'Lý', 'Tô', 'Tạ', 'Vương', 'Châu', 'Cao', 'Triệu'
-    ]
-    first_names = [
-        'Hùng', 'Lan', 'Mai', 'Dũng', 'Hương', 'Phong', 'Linh', 'Tâm', 'Bình', 'Nam',
-        'Hà', 'Minh', 'Đạt', 'Khoa', 'Hồng', 'Thảo', 'Thanh', 'An', 'Tuấn', 'Hiếu',
-        'Tùng', 'Việt', 'Khánh', 'Trang', 'Giang', 'Vân', 'Sơn', 'Quang', 'Thịnh', 'Quỳnh'
-    ]
+# def fake_name_VN():
+#     last_names = [
+#         'Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Vũ', 'Đặng', 'Bùi', 'Đỗ',
+#         'Hồ', 'Ngô', 'Dương', 'Lý', 'Tô', 'Tạ', 'Vương', 'Châu', 'Cao', 'Triệu'
+#     ]
+#     first_names = [
+#         'Hùng', 'Lan', 'Mai', 'Dũng', 'Hương', 'Phong', 'Linh', 'Tâm', 'Bình', 'Nam',
+#         'Hà', 'Minh', 'Đạt', 'Khoa', 'Hồng', 'Thảo', 'Thanh', 'An', 'Tuấn', 'Hiếu',
+#         'Tùng', 'Việt', 'Khánh', 'Trang', 'Giang', 'Vân', 'Sơn', 'Quang', 'Thịnh', 'Quỳnh'
+#     ]
     
-    lastname = random.choice(last_names)
-    firstname = random.choice(first_names) 
+#     lastname = random.choice(last_names)
+#     firstname = random.choice(first_names) 
     
-    return firstname, lastname
+#     return firstname, lastname
 
 
 if __name__ == "__main__":
