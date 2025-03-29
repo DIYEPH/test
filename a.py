@@ -882,12 +882,10 @@ def main() -> None:
                 print(Panel(f"[bold white] VERIFICATION CODE : {valid}",style="bold magenta2"))
                 confirm_id(email2,uid,valid,con_sub,ses)
             else:
-                #print(Panel(f"[bold red] DISABLED ID",style="bold magenta2"))
-                os.system('espeak -a 300 " OH SHIT CP ID"')
+                print(Panel(f"[bold red] CHECKPOINT",style="bold magenta2"))
                 Cp+=1
         else:
-            #print(Panel(f" [bold red]SUCCESSFULLY CHECKPOINT ID",style="bold magenta2"))
-            os.system('espeak -a 300 " OH SHIT CP ID"')
+             print(Panel(f"[bold red] CHECKPOINT",style="bold magenta2"))
             Cp+=1
 
 def confirm_id(mail,uid,otp,data,ses):
