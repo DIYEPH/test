@@ -978,21 +978,21 @@ def post_account(uid, password, cookie, email, two_fa, useragent):
 
 
 
-# def fake_name_VN():
-#     last_names = [
-#         'Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Vũ', 'Đặng', 'Bùi', 'Đỗ',
-#         'Hồ', 'Ngô', 'Dương', 'Lý', 'Tô', 'Tạ', 'Vương', 'Châu', 'Cao', 'Triệu'
-#     ]
-#     first_names = [
-#         'Hùng', 'Lan', 'Mai', 'Dũng', 'Hương', 'Phong', 'Linh', 'Tâm', 'Bình', 'Nam',
-#         'Hà', 'Minh', 'Đạt', 'Khoa', 'Hồng', 'Thảo', 'Thanh', 'An', 'Tuấn', 'Hiếu',
-#         'Tùng', 'Việt', 'Khánh', 'Trang', 'Giang', 'Vân', 'Sơn', 'Quang', 'Thịnh', 'Quỳnh'
-#     ]
+def fake_name_VN():
+    last_names = [
+        'Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Vũ', 'Đặng', 'Bùi', 'Đỗ',
+        'Hồ', 'Ngô', 'Dương', 'Lý', 'Tô', 'Tạ', 'Vương', 'Châu', 'Cao', 'Triệu'
+    ]
+    first_names = [
+        'Hùng', 'Lan', 'Mai', 'Dũng', 'Hương', 'Phong', 'Linh', 'Tâm', 'Bình', 'Nam',
+        'Hà', 'Minh', 'Đạt', 'Khoa', 'Hồng', 'Thảo', 'Thanh', 'An', 'Tuấn', 'Hiếu',
+        'Tùng', 'Việt', 'Khánh', 'Trang', 'Giang', 'Vân', 'Sơn', 'Quang', 'Thịnh', 'Quỳnh'
+    ]
     
-#     lastname = random.choice(last_names)
-#     firstname = random.choice(first_names) 
+    lastname = random.choice(last_names)
+    firstname = random.choice(first_names) 
     
-#     return firstname, lastname
+    return firstname, lastname
 
 
 if __name__ == "__main__":
