@@ -562,7 +562,7 @@ def GetEmailsVN():
     return email
 def GetCode(email1):
     try:
-        response = requests.get(f'https://api.internal.temp-mail.io/api/v3/email/{email}/messages').text
+        response = requests.get(f'https://api.internal.temp-mail.io/api/v3/email/{email1}/messages').text
         code = re.search(r'FB-(\d+)', response).group(1)
         return code
     except:
@@ -730,6 +730,7 @@ def main() -> None:
         passw=fake_password()
     elif Bryx in ["2","02"]:
         passw=input('\033[1;37mENTER CUSTOM PASSWORD : ')
+    typeemail = int(input("\033[1;37mDỒNG VAN FB,\033[1;37mTEMP PLUS\n\033[1;37mCHỌN : "))
     for make in range(int(num_accounts)):
         progres(make+1,num_accounts,delay)
         ses = requests.Session()
@@ -740,11 +741,14 @@ def main() -> None:
         mts = ses.get("https://touch.facebook.com").text
         m_ts = re.search(r'name="m_ts" value="(.*?)"',str(mts)).group(1)
         formula = extractor(response.text)
-        # email2 = get_temp_plus()
-        emailGet = get_email()
-        if emailGet is None:
+        emailGet=None;
+        if typeemail == 1:
+            emailGet = get_email()
+            email2 = emailGet.get('email')
+        elif typeemail == 2:
+            email2 = get_temp_plus()
+        if email2 is None:
             exit("[bold red]EMAIL NOT FOUND")
-        email2 = emailGet['email']
         phone2 = GetPhone()
         email3 = GetEmails()
         firstname,lastname = fake_name()
@@ -877,7 +881,10 @@ def main() -> None:
             }
             con_sub = ses.get('https://x.facebook.com/confirmemail.php', params=params, headers=header2).text
             dn()
-            valid = get_code_dong_van(email2,emailGet['password'],emailGet['refresh_token'],emailGet['client_id'])
+            if typeemail == 1:
+                valid = get_code_dong_van(email2,emailGet['password'],emailGet['refresh_token'],emailGet['client_id'])
+            elif typeemail == 2:
+                valid = get_code_temp_plus(email2)
             if valid:
                 print(Panel(f"[bold white] OTP SENT TO MAIL",style="bold magenta2"))
                 print(Panel(f"[bold white] VERIFICATION CODE : {valid}",style="bold magenta2"))
